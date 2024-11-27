@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>룰렛 게임</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f4f4f4;
+            font-family: Arial, sans-serif;
+        }
+        .roulette-container {
+            position: relative;
+            width: 400px;
+            height: 400px;
+        }
+        .roulette-wheel {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: conic-gradient(
+                #f94144 0% 14.28%, 
+                #f3722c 14.28% 28.56%, 
+                #f8961e 28.56% 42.84%, 
+                #90be6d 42.84% 57.12%, 
+                #43aa8b 57.12% 71.4%, 
+                #577590 71.4% 85.68%, 
+                #333333 85.68% 100%
+            );
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            transform: rotate(0deg); /* 초기 위치 */
+            transition: transform 4s ease-out; /* 부드러운 회전 */
+        }
+        .pointer {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 30px;
+            height: 60px;
+            background-color: #ff0000;
+            clip-path: polygon(50% 100%, 100% 0%, 0% 0%);
+            z-index: 10;
+        }
+        .center-circle {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background-color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+        }
+        .center-circle span {
+            font-size: 18px;
+            font-weight: bold;
+            text-align: center;
+            color: #333;
+        }
+
+        .roulette-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform-origin: center;
+            font-size: 14px;
+            font-weight: bold;
+            color: #fff;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.6);
+            text-align: center;
+        }
+        .text-1x { transform: rotate(0deg) translate(60px, -160px) rotate(0deg); }
+        .text-2x { transform: rotate(51.43deg) translate(60px, -160px) rotate(-51.43deg); }
+        .text-3x { transform: rotate(102.86deg) translate(60px, -160px) rotate(-102.86deg); }
+        .text-4x { transform: rotate(154.29deg) translate(60px, -160px) rotate(-154.29deg); }
+        .text-5x { transform: rotate(205.72deg) translate(60px, -160px) rotate(-205.72deg); }
+        .text-6x { transform: rotate(257.15deg) translate(60px, -160px) rotate(-257.15deg); }
+        .text-7x { transform: rotate(308.58deg) translate(60px, -160px) rotate(-308.58deg); }
+
+        .start-button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .start-button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="roulette-container">
+        <div class="pointer"></div>
+        <div class="roulette-wheel">
+            <div class="center-circle">
+                <span>룰렛 게임</span>
+            </div>
+            <div class="roulette-text text-1x">2배</div>
+            <div class="roulette-text text-2x">3배</div>
+            <div class="roulette-text text-3x">1배</div>
+            <div class="roulette-text text-4x">2배</div>
+            <div class="roulette-text text-5x">1배</div>
+            <div class="roulette-text text-6x">1배</div>
+            <div class="roulette-text text-7x">꽝</div>
+        </div>
+    </div>
+    <button class="start-button" onclick="startRoulette()">Start</button>
+
+    <script>
+        function startRoulette() {
+            const wheel = document.querySelector('.roulette-wheel');
+
+            // 초기화
+            wheel.style.transition = 'none';
+            wheel.style.transform = 'rotate(0deg)';
+
+            setTimeout(() => {
+                const randomAngle = Math.random() * 360 + 3600; // 360도 이상 회전
+                wheel.style.transition = 'transform 4s ease-out';
+                wheel.style.transform = `rotate(${randomAngle}deg)`;
+            }, 100);
+        }
+    </script>
+</body>
+</html>
